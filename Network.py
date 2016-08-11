@@ -5,6 +5,7 @@ import networkx as nx
 from Topo import Topo
 import matplotlib.pyplot as plt
 
+
 class Network:
 
     def __init__(self):
@@ -22,6 +23,11 @@ class Network:
     def findPath(self, fo, to):
         print self.path[fo][to]
 
+    def start(self):  # 供其它程序调用
+        self.topo = Topo()
+        self.topo.start()
+        self.build(self.topo.links)
+
 
 if __name__ == '__main__':
     topo = Topo()
@@ -30,5 +36,3 @@ if __name__ == '__main__':
     network.build(topo.links)
     network.findPath(12, 19)
     network.draw()
-
-
