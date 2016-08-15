@@ -8,9 +8,9 @@ import json
 
 
 class Topo:
-    hosts_url = "http://localhost:8080/wm/device/"  # 只会得到 Host 的数据 和 Host 所连接的主机
-    switchs_url = "http://localhost:8080/wm/core/controller/switches/json"  # 得到 Switch 的数据
-    links_switch_url = "http://localhost:8080/wm/topology/links/json"  # 只是 Switch 之间的 Link
+    hosts_url = "http://localhost:8080/wm/device/"  # 只会得到 host 的数据 和 host 所连接的主机
+    switchs_url = "http://localhost:8080/wm/core/controller/switches/json"  # 得到 switch 的数据
+    links_switch_url = "http://localhost:8080/wm/topology/links/json"  # 只是 switch 之间的 link
     nodes = []
     links = []
     mapnodes = {}
@@ -25,6 +25,7 @@ class Topo:
         self.switchs = json.load(f)
         f = open("links_switch")
         self.links_switch = json.load(f)
+
         # 下面三行是在 mininet + floodlight 环境下获取拓扑信息,
         # 现在写死了, 拓扑信息获取后写入文件,然后用上面几行读出来
         # self.hosts = requests.get(self.hosts_url).json()

@@ -1,0 +1,22 @@
+table {
+    width: 300px;
+    line-height: 2em;
+    font-family: Arial;
+    border-collapse: collapse;
+}
+thead tr {
+    color: #ae1212;
+    border-bottom: 2px solid #980000;
+}
+tbody tr {
+    color: #bd3030;
+    font-size: 0.8em;
+    border-bottom: 1px solid #ffaeae;
+}
+th {
+    font-weight: normal;
+    text-align: left;
+}
+th,td {
+    padding: 0 10px;
+}

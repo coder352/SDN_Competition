@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(function(){
+// 异步加载片段
+      $("body").text("loading...");
+      $("body").load("box.htm", function(a, status, c){
+        console.log(status);
+        if(status == "error"){
+          $("body").text("load failed");
+        }
+      })
+// 异步加载文件
+      $.getScript("hellojs.js").complete(function(){
+        sayhello();
+      })
+    });
+  </script> 
+</body>
+</html>

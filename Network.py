@@ -14,25 +14,36 @@ class Network:
     def build(self, links):
         for i in range(0, len(links)):
             self.G.add_edge(links[i].fo, links[i].to)
-        self.path = nx.all_pairs_shortest_path(self.G)
+        self.normal_path = nx.all_pairs_shortest_path(self.G)  # 先找好权值为 1 的路径
 
     def draw(self):
-        nx.draw(self.G, with_labels=True, node_size=30)
+        pos = nx.spring_layout(self.G)
+        nx.draw(self.G, pos, with_labels=True, node_size=500)
         plt.show()
 
-    def findPath(self, fo, to):
-        print self.path[fo][to]
+    def findNormalPath(self, fo, to):
+        return self.normal_path[fo][to]
 
-    def start(self):  # 供其它程序调用
+    # def findPath(self, fo, to):
+        # # path = nx.shortest_path(self.G, fo, to, 0.3)
+        # # print type(path)
+        # return nx.shortest_path(self.G, fo, to, 0.3)
+        # pass
+
+    # def calcWeight(self):
+        # pass
+
+    def start(self):
         self.topo = Topo()
         self.topo.start()
         self.build(self.topo.links)
 
 
+
 if __name__ == '__main__':
-    topo = Topo()
-    topo.start()
     network = Network()
-    network.build(topo.links)
-    network.findPath(12, 19)
+    network.start()
+
+    print network.findNormalPath(12, 19)
+    print network.findPath(12, 19)
     network.draw()
