@@ -3,35 +3,50 @@
   <head>
     <meta charset="UTF-8">
     <title>topo_left</title>
-    <script src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/jquery-1.8.0.min.js"></script>
+    <!--<script src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js"></script>-->
     <script type="text/javascript">
 $(document).ready(function() {
   $("input.append").live("focus",function() {
     var size = $("tbody tr").size();
     $(this).removeClass();
-    $("tbody").append('<tr><td width="10px"><input type="text" id="src'+size+'" class="append"/></td><td width="10px"><input type="text" id="dst'+size+'" /></td><td><span id="path'+size+'"></span></td></tr>');
+    $("tbody").append('<tr><td><input type="text" id="src'+size+'" class="append"/></td><td><input type="text" id="dst'+size+'"/></td><td><input type="text" id="time'+size+'" value="10"/></td><td><input type="text" id="flow'+size+'" value="10"/></td><td><span id="path'+size+'"></span></td></tr>');
   });
 });
     </script>
+    <style type="text/css" media="screen">
+input {
+  width: 40px;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+}
+.path {
+  width: 300px;
+  margin: 0px;
+  padding: 0px;
+}
+    </style>
   </head>
   <body>
-    <!--<form action="#" method="post">-->
     <button id="btn">路径查询</button>
-    <!--<button id="flow">流量查询</button>-->
-    <!--<button id="eng">能耗查询</button>-->
+    <button id="flow">流量查询</button>
     <form>
-      <!--<input type="submit" value="提交">-->
       <table border="1" cellspacing="0"cellpadding="0">
         <thead><tr>
-            <th width="10px">src</th>
-            <th width="10px">dst</th>
-            <th width="70px">path</th>
+            <th>src</th>
+            <th>dst</th>
+            <th>time</th>
+            <th>flow</th>
+            <th class='path'>path</th>
           </tr></thead>
           <tbody>
             <tr>
-              <td width="10px"><input type="text" id="src0" class="append"/></td>
-              <td width="10px"><input type="text" id="dst0"/></td>
-              <td width="400px"><span id="path0"></span></td>
+              <td><input type="text" id="src0" class="append"/></td>
+              <td><input type="text" id="dst0"/></td>
+              <td><input type="text" id="time0" value="10"/></td>
+              <td><input type="text" id="flow0" value="10"/></td>
+              <td><span id="path0" class='path'></span></td>
             </tr>
           </tbody>
       </table>
@@ -43,16 +58,16 @@ $(document).ready(function(){
     for (var i = 0; i < size - 1; i++) {
       var src = "#src" + i;
       var dst = "#dst" + i;
+      var time = "#time" + i;
+      var flow = "#flow" + i;
       var path = "#path" + i;
-      console.log(dst)
-      $.get("/getpath?src=" + $(src).val() + "&dst=" + $(dst).val(), {}, function(data){
-        console.log(size);
-        $(path).text(data);
-      }).error(function(){
-        $(path).text("error");
-      })
-
+      console.log(dst);
+      htmlobj = $.ajax({url:"/getpath?src=" + $(src).val() + "&dst=" + $(dst).val() + "&time=" + $(time).val() + "&flow=" + $(flow).val(), async:false});
+      $(path).text(htmlobj.responseText)
     }
+  })
+  $("#flow").on("click", function(){
+    htmlobj = $.ajax({url:"/getflow"});
   })
 });
     </script>

@@ -26,12 +26,19 @@ app.config['SECRET_KEY'] = 'jrp'
 #     # dst = StringField("dst[0]")
 #         print "##########################################################"
 
+@app.route("/getflow", methods=['GET', 'POST'])
+def getflow():
+    network.drawFlow()
+
 
 @app.route("/getpath", methods=['GET', 'POST'])
 def getpath():
-    src = int(str(request.args.get('src', '')))
-    dst = int(str(request.args.get('dst', '')))
-    path = network.findPath(src, dst)
+    src = str(request.args.get('src', ''))
+    dst = str(request.args.get('dst', ''))
+    time = int(request.args.get('time', ''))
+    flow = int(request.args.get('flow', ''))
+    path = network.findPathbyWeight(src, dst, time, flow)
+    # path = network.findNormalPath(src, dst)
     return str(path)
 
 
@@ -44,8 +51,7 @@ def home():
 
 @app.route('/draw', methods=['GET', 'POST'])
 def draw():
-    network.draw()
-    return network.findPath(fo, to)
+    network.drawTopo()
 
 if __name__ == '__main__':
     network = Network()
