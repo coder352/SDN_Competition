@@ -5,6 +5,7 @@ flask-wtf 带有CSRF 令牌的安全表单
 
 requests
 matplotlib
+networkx
 
 jquery
 html+css
