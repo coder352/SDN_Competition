@@ -4,9 +4,9 @@
 from flask import Flask
 from flask import request
 from flask import render_template
-from flask.ext.wtf import Form
-from wtforms import StringField, SubmitField, IntegerField
-from wtforms.validators import Required
+# from flask.ext.wtf import Form
+# from wtforms import StringField, SubmitField, IntegerField
+# from wtforms.validators import Required
 from Network import Network
 
 app = Flask(__name__)
